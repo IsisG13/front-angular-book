@@ -1,0 +1,198 @@
+<main class="principal">
+  <h2 class="principal__titulo">Dados do cadastro</h2>
+
+  <form
+    class="principal__formulario"
+    id="formulario"
+    (ngSubmit)="cadastrar(form)"
+    #form="ngForm"
+  >
+    <h3 class="principal__subtitulo">Dados pessoais</h3>
+
+    <!-- NOME -->
+    <div class="formulario__campo">
+      <label class="campo__etiqueta" for="nome">Nome Completo</label>
+      <input
+        name="nome"
+        id="nome"
+        class="campo__escrita"
+        ngModel
+        #nome="ngModel"
+        required
+        minlength="2"
+      />
+      <small
+        class="erro__texto"
+        *ngIf="form.controls['nome']?.errors?.['required'] && form.controls['nome']?.touched"
+        >Campo nome obrigatório.</small
+      >
+      <small
+        class="erro__texto"
+        *ngIf="nome?.errors?.['minlength'] && nome?.touched"
+        >Nome deve ter mais de 2 caracteres.</small
+      >
+    </div>
+
+        <!-- EMAIL -->
+    <div class="formulario__campo">
+      <label class="campo__etiqueta" for="email">E-mail</label>
+      <input
+        name="email"
+        id="email"
+        type="email"
+        class="campo__escrita"
+        ngModel
+        #email="ngModel"
+        required
+        email
+        pattern="^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$"
+      />
+      <small
+        class="erro__texto"
+        *ngIf="email?.errors?.['required'] && email?.touched"
+      >
+        Campo e-mail obrigatório.
+      </small>
+      <small
+        class="erro__texto"
+        *ngIf="email?.errors?.['email'] else patternEmail"
+      >
+        Campo e-mail incorreto.
+      </small>
+      <ng-template #patternEmail>
+        <small class="erro__texto" *ngIf="email?.errors?.['pattern']">
+          Acrescente "@" e ".com".
+        </small>
+      </ng-template>
+    </div>
+
+        <!-- CONTATO -->
+    <div class="formulario__campo">
+      <label class="campo__etiqueta" for="telefone">Contato</label>
+      <input
+        name="telefone"
+        id="telefone"
+        type="tel"
+        placeholder="(XX) XXXXX-XXXX"
+        class="campo__escrita"
+        ngModel
+        #telefone="ngModel"
+        required
+        pattern="(\(?\d{2}\)?\s?)(\d{5}\-?\d{4})"
+      />
+      <small
+        class="erro__texto"
+        *ngIf="telefone?.errors?.['required'] && telefone?.touched"
+      >
+        Campo telefone obrigatório.
+      </small>
+      <small class="erro__texto" *ngIf="telefone?.errors?.['pattern']">
+        Campo telefone deve ter DDD com 2 digitos e 9 digitos.
+      </small>
+    </div>
+
+        <!-- NASCIMENTO -->
+    <div class="formulario__campo">
+      <label class="campo__etiqueta" for="ano_nascimento"
+        >Ano de nascimento</label
+      >
+      <input
+        name="ano_nascimento"
+        id="ano_nascimento"
+        type="number"
+        class="campo__escrita"
+        ngModel
+        #ano_nascimento="ngModel"
+        required
+        verificaMaiorIdade
+        pattern="\d*"
+        maxlength="4"
+      />
+      <div
+        *ngIf="
+          (ano_nascimento.invalid && ano_nascimento.touched) ||
+          ano_nascimento.dirty
+        "
+      >
+        <app-mensagem
+          *ngIf="ano_nascimento?.errors?.['required']"
+          mensagem="Informe seu ano de nascimento"
+        ></app-mensagem>
+        <app-mensagem
+          *ngIf="ano_nascimento?.errors?.['verificaMaiorIdade']"
+          mensagem="Usuário deve ser maior de 18 anos"
+        ></app-mensagem>
+      </div>
+    </div>
+
+    <h3 class="principal__subtitulo">Endereço</h3>
+
+    <div class="formulario__campo">
+      <label class="campo__etiqueta" for="cep">CEP</label>
+      <input type="text" class="campo__escrita" name="cep" />
+    </div>
+
+    <div class="formulario__campo">
+      <label class="campo__etiqueta" for="endereco">Endereço</label>
+      <input name="endereco" id="endereco" class="campo__escrita" />
+    </div>
+    <div class="formulario__dupla">
+      <div class="formulario__campo">
+        <label class="campo__etiqueta" for="numero">Numero</label>
+        <input name="numero" id="numero" class="campo__escrita" />
+      </div>
+      <div class="formulario__campo">
+        <label class="campo__etiqueta" for="complemento">Complemento</label>
+        <input name="complemento" id="complemento" class="campo__escrita" />
+      </div>
+    </div>
+    <div class="formulario__campo">
+      <label class="campo__etiqueta" for="bairro">Bairro</label>
+      <input name="bairro" id="bairro" class="campo__escrita" />
+    </div>
+    <div class="formulario__dupla">
+      <div class="formulario__campo">
+        <label class="campo__etiqueta" for="cidade">Cidade</label>
+        <input name="cidade" id="cidade" class="campo__escrita" />
+      </div>
+
+      <div class="formulario__campo">
+        <label class="campo__etiqueta" for="estado">UF</label>
+        <select id="estado" name="estado" class="campo__escrita">
+          <option value="AC">Acre</option>
+          <option value="AL">Alagoas</option>
+          <option value="AP">Amapá</option>
+          <option value="AM">Amazonas</option>
+          <option value="BA">Bahia</option>
+          <option value="CE">Ceará</option>
+          <option value="DF">Distrito Federal</option>
+          <option value="ES">Espírito Santo</option>
+          <option value="GO">Goiás</option>
+          <option value="MA">Maranhão</option>
+          <option value="MT">Mato Grosso</option>
+          <option value="MS">Mato Grosso do Sul</option>
+          <option value="MG">Minas Gerais</option>
+          <option value="PA">Pará</option>
+          <option value="PB">Paraíba</option>
+          <option value="PR">Paraná</option>
+          <option value="PE">Pernambuco</option>
+          <option value="PI">Piauí</option>
+          <option value="RJ">Rio de Janeiro</option>
+          <option value="RN">Rio Grande do Norte</option>
+          <option value="RS">Rio Grande do Sul</option>
+          <option value="RO">Rondônia</option>
+          <option value="RR">Roraima</option>
+          <option value="SC">Santa Catarina</option>
+          <option value="SP">São Paulo</option>
+          <option value="SE">Sergipe</option>
+          <option value="TO">Tocantins</option>
+          <option value="EX">Estrangeiro</option>
+        </select>
+      </div>
+    </div>
+
+    <button type="submit" class="formulario__botao" [disabled]="form.invalid">
+      Enviar formulário
+    </button>
+  </form>
+</main>
