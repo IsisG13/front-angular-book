@@ -1,7 +1,6 @@
 import { Router } from "@angular/router";
 import { Component, OnInit } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
-// import { map } from "rxjs/operators";
+import { FormControl, FormGroup } from "@angular/forms";
 
 @Component({
   selector: "app-cadastro",
@@ -9,29 +8,38 @@ import { HttpClient } from "@angular/common/http";
   styleUrls: ["./cadastro.component.css"],
 })
 export class CadastroComponent implements OnInit {
-  
-  constructor(private router: Router, private http: HttpClient) {}
+  cadastroForm!: FormGroup;
 
-  ngOnInit(): void {}
+  constructor(
+    private router: Router
+  ) {}
 
-  cadastrar(form: any) {
-    return form.valid ? this.router.navigate(['sucesso']) : alert('Formulário inválido');
+  ngOnInit(): void {
+    this.formularioCadastro();
   }
 
-  // consultaCEP(cep: any, form: any) {
-  //   cep = cep.value.replace(/\D/g, "");
-  //   if (cep != "") {
-  //     var validaCEP = /^[0-9]{8}$/;
-  //     if (validaCEP.test(cep)) {
-  //       this.http
-  //         .get(`https://viacep.com.br/ws/${cep}/json/`)
-  //         .subscribe((dados) => this.populaDadosForms(dados, form));
-  //     }
-  //   }
-  // }
-  // populaDadosForms(dados:any, form: any){
-  //   form.setValue({
-  //     nome: null, email: null, endereco: {rua: dados.logradouro,cep:dados.cep , numero: dados,complemento:dados.complemento , bairro: dados.bairro, cidade: dados.cidade, estado:dados.estado }
-  //   })
-  // }
+  formularioCadastro() {
+    this.cadastroForm = new FormGroup({
+      nome: new FormControl(""),
+      nascimento: new FormControl(""),
+      contato: new FormControl(""),
+      email: new FormControl(""),
+      cep: new FormControl(""),
+      endereco: new FormControl(""),
+      numero: new FormControl(""),
+      complemento: new FormControl(""),
+      bairro: new FormControl(""),
+      cidade: new FormControl(""),
+      // uf: new FormControl(""),
+    });
+  }
+
+  cadastrar(form: any) {
+    console.log(this.cadastroForm.value);
+    if (this.cadastroForm.valid) {
+      this.router.navigate(['./sucesso'])
+    } else {
+      alert('Formulario invalido')
+    }
+  }
 }

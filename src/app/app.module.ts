@@ -11,7 +11,6 @@ import { FormsModule } from "@angular/forms";
 import { CadastroComponent } from "./cadastro/cadastro.component";
 import { SucessoCadastroComponent } from "./sucesso-cadastro/sucesso-cadastro.component";
 import { VerificaMaiorIdadeValidator } from './directive/maior-de-idade.directive';
-import { MaiorIdadeDirective } from './directives/maior-idade.directive';
 
 // registerLocaleData(localePT);
 @NgModule({
@@ -23,7 +22,6 @@ import { MaiorIdadeDirective } from './directives/maior-idade.directive';
     SucessoCadastroComponent,
     VerificaMaiorIdadeValidator ,
     MensagemComponent,
-    MaiorIdadeDirective
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule],
   providers: [],

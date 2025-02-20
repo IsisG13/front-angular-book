@@ -8,7 +8,17 @@ import { AbstractControl, NG_VALIDATORS, ValidationErrors, Validator } from '@an
     multi: true
   }],
 })
-export class VerificaMaiorIdadeValidator {
+export class VerificaMaiorIdadeValidator implements Validator {
+  validate(control: AbstractControl): ValidationErrors | null {
 
+    const anoNasc = control.value;
+
+    const anoAtual = new Date().getFullYear();
+    console.log(anoAtual);
+
+    const anoMais18anos = anoNasc + 18;
+    const ehMaior = anoMais18anos <= anoAtual;
+    return ehMaior ? null: { 'verificaMaiorIdade' : true }
+  }
 }
 

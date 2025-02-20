@@ -79,6 +79,7 @@
         #telefone="ngModel"
         required
         pattern="(\(?\d{2}\)?\s?)(\d{5}\-?\d{4})"
+        maxlength="15"
       />
       <small
         class="erro__texto"
@@ -99,29 +100,24 @@
       <input
         name="ano_nascimento"
         id="ano_nascimento"
-        type="number"
+        type="text"
         class="campo__escrita"
         ngModel
         #ano_nascimento="ngModel"
         required
         verificaMaiorIdade
         pattern="\d*"
-        maxlength="4"
+        minlength="4"
+        maxlength="8"
       />
-      <div
-        *ngIf="
-          (ano_nascimento.invalid && ano_nascimento.touched) ||
-          ano_nascimento.dirty
-        "
-      >
-        <app-mensagem
-          *ngIf="ano_nascimento?.errors?.['required']"
-          mensagem="Informe seu ano de nascimento"
-        ></app-mensagem>
-        <app-mensagem
-          *ngIf="ano_nascimento?.errors?.['verificaMaiorIdade']"
-          mensagem="Usuário deve ser maior de 18 anos"
-        ></app-mensagem>
+      <div *ngIf="(ano_nascimento.invalid && ano_nascimento.touched) 
+      || ano_nascimento.dirty">
+
+          <app-mensagem *ngIf="ano_nascimento?.errors?.['required']"
+          mensagem="Informe seu ano de nascimento"></app-mensagem>
+
+          <small class="erro__texto" *ngIf="ano_nascimento?.errors?.['minlength'] && ano_nascimento?.touched || ano_nascimento?.errors?.['maxlength'] && ano_nascimento?.touched"
+          >Informe um ano valido. Ex: yyyy OR ddmmyyyy</small> <br>
       </div>
     </div>
 
