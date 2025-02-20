@@ -78,8 +78,3 @@
   line-height: 18px;
   color: var(--vermelho);
 }
-
-.ng-invalid.ng-touched:not(form){
-  border-color: red;
-  color: red;
-}

@@ -33,7 +33,7 @@
       >
     </div>
 
-        <!-- EMAIL -->
+    <!-- EMAIL -->
     <div class="formulario__campo">
       <label class="campo__etiqueta" for="email">E-mail</label>
       <input
@@ -66,7 +66,7 @@
       </ng-template>
     </div>
 
-        <!-- CONTATO -->
+    <!-- CONTATO -->
     <div class="formulario__campo">
       <label class="campo__etiqueta" for="telefone">Contato</label>
       <input
@@ -92,7 +92,7 @@
       </small>
     </div>
 
-        <!-- NASCIMENTO -->
+    <!-- NASCIMENTO -->
     <div class="formulario__campo">
       <label class="campo__etiqueta" for="ano_nascimento"
         >Ano de nascimento</label
@@ -100,24 +100,28 @@
       <input
         name="ano_nascimento"
         id="ano_nascimento"
-        type="text"
+        type="date"
         class="campo__escrita"
         ngModel
         #ano_nascimento="ngModel"
         required
-        verificaMaiorIdade
+        maiorIdadeValidator
         pattern="\d*"
-        minlength="4"
-        maxlength="8"
       />
-      <div *ngIf="(ano_nascimento.invalid && ano_nascimento.touched) 
-      || ano_nascimento.dirty">
-
-          <app-mensagem *ngIf="ano_nascimento?.errors?.['required']"
-          mensagem="Informe seu ano de nascimento"></app-mensagem>
-
-          <small class="erro__texto" *ngIf="ano_nascimento?.errors?.['minlength'] && ano_nascimento?.touched || ano_nascimento?.errors?.['maxlength'] && ano_nascimento?.touched"
-          >Informe um ano valido. Ex: yyyy OR ddmmyyyy</small> <br>
+      <div
+        *ngIf="
+          (ano_nascimento?.invalid && ano_nascimento?.touched) || ano_nascimento?.dirty
+        "
+      >
+        <app-mensagem
+          *ngIf="ano_nascimento?.errors?.['required']"
+          mensagem="A data de nascimento deve ser preenchida corretamente."
+        ></app-mensagem> <br>
+        
+        <app-mensagem
+          *ngIf="ano_nascimento?.errors?.['maiorIdadeValidator']"
+          mensagem="O usuário deve ter mais de 18 anos."
+        ></app-mensagem>
       </div>
     </div>
 
