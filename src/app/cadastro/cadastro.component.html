@@ -3,9 +3,8 @@
 
   <form
     class="principal__formulario"
-    id="formulario"
-    (ngSubmit)="cadastrar(form)"
-    #form="ngForm"
+    [formGroup]="cadastroForm"
+    (ngSubmit)="cadastrar()"
   >
     <h3 class="principal__subtitulo">Dados pessoais</h3>
 
@@ -15,20 +14,18 @@
       <input
         name="nome"
         id="nome"
+        formControlName="nome"
         class="campo__escrita"
-        ngModel
-        #nome="ngModel"
         required
         minlength="2"
       />
       <small
-        class="erro__texto"
-        *ngIf="form.controls['nome']?.errors?.['required'] && form.controls['nome']?.touched"
+        *ngIf="cadastroForm.get('nome')?.errors?.['required'] && cadastroForm.get('nome')?.touched"
         >Campo nome obrigatório.</small
       >
       <small
         class="erro__texto"
-        *ngIf="nome?.errors?.['minlength'] && nome?.touched"
+        *ngIf="cadastroForm.get('nome')?.errors?.['minlength'] && cadastroForm.get('nome')?.touched"
         >Nome deve ter mais de 2 caracteres.</small
       >
     </div>
@@ -41,26 +38,28 @@
         id="email"
         type="email"
         class="campo__escrita"
-        ngModel
-        #email="ngModel"
+        formControlName="email"
         required
         email
         pattern="^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$"
       />
       <small
         class="erro__texto"
-        *ngIf="email?.errors?.['required'] && email?.touched"
+        *ngIf="cadastroForm.get('email')?.errors?.['required'] && cadastroForm.get('email')?.touched"
       >
         Campo e-mail obrigatório.
       </small>
       <small
         class="erro__texto"
-        *ngIf="email?.errors?.['email'] else patternEmail"
+        *ngIf="cadastroForm.get('email')?.errors?.['email'] else patternEmail"
       >
         Campo e-mail incorreto.
       </small>
       <ng-template #patternEmail>
-        <small class="erro__texto" *ngIf="email?.errors?.['pattern']">
+        <small
+          class="erro__texto"
+          *ngIf="cadastroForm.get('email')?.errors?.['pattern']"
+        >
           Acrescente "@" e ".com".
         </small>
       </ng-template>
@@ -68,58 +67,55 @@
 
     <!-- CONTATO -->
     <div class="formulario__campo">
-      <label class="campo__etiqueta" for="telefone">Contato</label>
+      <label class="campo__etiqueta" for="contato">Contato</label>
       <input
-        name="telefone"
-        id="telefone"
+        name="contato"
+        id="contato"
+        formControlName="contato"
         type="tel"
         placeholder="(XX) XXXXX-XXXX"
         class="campo__escrita"
-        ngModel
-        #telefone="ngModel"
         required
-        pattern="(\(?\d{2}\)?\s?)(\d{5}\-?\d{4})"
+        pattern="^\d{2} \d{5}-\d{4}$"
         maxlength="15"
       />
       <small
         class="erro__texto"
-        *ngIf="telefone?.errors?.['required'] && telefone?.touched"
+        *ngIf="cadastroForm.get('contato')?.errors?.['required'] && cadastroForm.get('contato')?.touched"
       >
         Campo telefone obrigatório.
       </small>
-      <small class="erro__texto" *ngIf="telefone?.errors?.['pattern']">
+      <small
+        class="erro__texto"
+        *ngIf="cadastroForm.get('contato')?.errors?.['pattern']"
+      >
         Campo telefone deve ter DDD com 2 digitos e 9 digitos.
       </small>
     </div>
 
     <!-- NASCIMENTO -->
     <div class="formulario__campo">
-      <label class="campo__etiqueta" for="ano_nascimento"
-        >Ano de nascimento</label
-      >
+      <label class="campo__etiqueta" for="nascimento">Data de Nascimento</label>
       <input
-        name="ano_nascimento"
-        id="ano_nascimento"
+        name="nascimento"
+        id="nascimento"
+        formControlName="nascimento"
         type="date"
         class="campo__escrita"
-        ngModel
-        #ano_nascimento="ngModel"
         required
-        maiorIdadeValidator
-        pattern="\d*"
       />
       <div
         *ngIf="
-          (ano_nascimento?.invalid && ano_nascimento?.touched) || ano_nascimento?.dirty
+          cadastroForm.get('nascimento')?.invalid &&
+          cadastroForm.get('nascimento')?.touched
         "
       >
         <app-mensagem
-          *ngIf="ano_nascimento?.errors?.['required']"
+          *ngIf="cadastroForm.get('nascimento')?.errors?.['required']"
           mensagem="A data de nascimento deve ser preenchida corretamente."
-        ></app-mensagem> <br>
-        
+        ></app-mensagem>
         <app-mensagem
-          *ngIf="ano_nascimento?.errors?.['maiorIdadeValidator']"
+          *ngIf="cadastroForm.get('nascimento')?.errors?.['maiorIdadeValidator']"
           mensagem="O usuário deve ter mais de 18 anos."
         ></app-mensagem>
       </div>
@@ -127,38 +123,78 @@
 
     <h3 class="principal__subtitulo">Endereço</h3>
 
+    <!-- CEP -->
     <div class="formulario__campo">
       <label class="campo__etiqueta" for="cep">CEP</label>
-      <input type="text" class="campo__escrita" name="cep" />
+      <input
+        type="text"
+        id="cep"
+        formControlName="cep"
+        class="campo__escrita"
+        name="cep"
+      />
     </div>
 
+    <!-- ENDEREÇO -->
     <div class="formulario__campo">
       <label class="campo__etiqueta" for="endereco">Endereço</label>
-      <input name="endereco" id="endereco" class="campo__escrita" />
+      <input
+        name="endereco"
+        formControlName="endereco"
+        id="endereco"
+        class="campo__escrita"
+      />
     </div>
+
+    <!-- NUMERO -->
     <div class="formulario__dupla">
       <div class="formulario__campo">
         <label class="campo__etiqueta" for="numero">Numero</label>
-        <input name="numero" id="numero" class="campo__escrita" />
+        <input
+          name="numero"
+          formControlName="numero"
+          id="numero"
+          class="campo__escrita"
+        />
       </div>
       <div class="formulario__campo">
         <label class="campo__etiqueta" for="complemento">Complemento</label>
-        <input name="complemento" id="complemento" class="campo__escrita" />
+        <input
+          name="numero"
+          formControlName="complemento"
+          name="complemento"
+          id="complemento"
+          class="campo__escrita"
+        />
       </div>
     </div>
+
+    <!-- BAIRRO -->
     <div class="formulario__campo">
       <label class="campo__etiqueta" for="bairro">Bairro</label>
-      <input name="bairro" id="bairro" class="campo__escrita" />
+      <input
+        formControlName="bairro"
+        name="bairro"
+        id="bairro"
+        class="campo__escrita"
+      />
     </div>
+
+    <!-- CIDADE -->
     <div class="formulario__dupla">
       <div class="formulario__campo">
         <label class="campo__etiqueta" for="cidade">Cidade</label>
-        <input name="cidade" id="cidade" class="campo__escrita" />
+        <input
+          name="cidade"
+          formControlName="cidade"
+          id="cidade"
+          class="campo__escrita"
+        />
       </div>
 
       <div class="formulario__campo">
         <label class="campo__etiqueta" for="estado">UF</label>
-        <select id="estado" name="estado" class="campo__escrita">
+        <select id="estado" name="estado" class="campo__escrita" formControlName="uf">
           <option value="AC">Acre</option>
           <option value="AL">Alagoas</option>
           <option value="AP">Amapá</option>
@@ -191,8 +227,6 @@
       </div>
     </div>
 
-    <button type="submit" class="formulario__botao" [disabled]="form.invalid">
-      Enviar formulário
-    </button>
+    <button type="submit" class="formulario__botao">Enviar formulário</button>
   </form>
 </main>
