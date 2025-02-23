@@ -55,18 +55,20 @@ export class CadastroComponent {
     return idade >= 18 ? null : { maiorIdadeValidator: true };
   }
 
+  public listar()  {
+    this.router.navigate(["/sucesso"]);
+  }
+
   // Método para enviar o formulário
   public cadastrar() {
     if (this.cadastroForm.valid) {
       const cadastroObj = {
         ...this.cadastroForm.value,
-        // Remove the hardcoded id since it's auto-generated
         id: null
       };
   
       this.httpClient.post(`${this.apiUrl}/cadastro`, cadastroObj).subscribe({
         next: (response) => {
-          alert("Cadastro realizado com sucesso!");
           this.router.navigate(["/sucesso"]);
         },
         error: (error) => {

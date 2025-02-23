@@ -45,6 +45,39 @@
   margin: 3em 0 2em 0;
 }
 
+.voltar {
+cursor: pointer;
+background: var(--laranja);
+color: black;
+font-weight: bold;
+border: none;
+padding: 0.7rem;
+margin: 13px 0 13px 0
+}
+
+.nome {
+  font-size: large;
+  margin-bottom: 5px;
+}
+
+.letra {
+  font-weight: bolder;
+  color: var(--laranja);
+  font-size: 30px;
+  margin-bottom: 6px;
+}
+
+.cardLista {
+  margin-bottom: -7px;
+  padding: 0.6rem;
+}
+
+.card {
+  margin-bottom: 15px;
+  display: grid;
+  grid-template-columns: 50% 50%;
+}
+
 @media screen and (min-width: 1024px) {
   .banner__titulo {
       font-size: 36px;

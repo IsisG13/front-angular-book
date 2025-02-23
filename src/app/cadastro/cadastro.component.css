@@ -43,16 +43,31 @@
 }
 
 .formulario__botao {
-  background: var(--laranja);
-  padding: 1em 4em;
-  font-weight: 700;
-  font-size: 20px;
-  line-height: 30px;
-  border: none;
-  color: var(--branco);
-  cursor: pointer;
-  float: right;
+  display: flex;
+  margin-top: 17px;
+  align-items: flex-start;
 }
+
+.enviar {
+  cursor: pointer;
+  background: var(--laranja);
+  color: black;
+  font-weight: bold;
+  border: none;
+  padding: .7rem;
+  margin: 0 15px 13px 0;
+  width: 50%;
+}
+
+.listar {
+  cursor: pointer;
+  background: var(--laranja);
+  color: black;
+  font-weight: bold;  border: none;
+  padding: .7rem;
+  width: 50%;
+}
+
 .formulario__botao:disabled {
   opacity: .5;  
   cursor: no-drop;

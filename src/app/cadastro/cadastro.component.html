@@ -1,11 +1,7 @@
 <main class="principal">
   <h2 class="principal__titulo">Dados do cadastro</h2>
 
-  <form
-    class="principal__formulario"
-    [formGroup]="cadastroForm"
-    (ngSubmit)="cadastrar()"
-  >
+  <form class="principal__formulario" [formGroup]="cadastroForm">
     <h3 class="principal__subtitulo">Dados pessoais</h3>
 
     <!-- NOME -->
@@ -194,7 +190,12 @@
 
       <div class="formulario__campo">
         <label class="campo__etiqueta" for="estado">UF</label>
-        <select id="estado" name="estado" class="campo__escrita" formControlName="uf">
+        <select
+          id="estado"
+          name="estado"
+          class="campo__escrita"
+          formControlName="uf"
+        >
           <option value="AC">Acre</option>
           <option value="AL">Alagoas</option>
           <option value="AP">Amapá</option>
@@ -227,6 +228,13 @@
       </div>
     </div>
 
-    <button type="submit" class="formulario__botao">Enviar formulário</button>
+    <div class="formulario__botao">
+      <button type="submit" (click)="cadastrar()" class="enviar">
+        Enviar formulário
+      </button>
+      <button type="submit" (click)="listar()" class="listar">
+        Listar pessoas
+      </button>
+    </div>
   </form>
 </main>

@@ -3,10 +3,26 @@
 </section>
 
 <main class="principal cadastro">
-  <h2 class="principal__titulo">Sucesso!</h2>
-  <h3 class="principal__subtitulo cadastro__subtitulo">Você finalizou seu cadastro!</h3>
-  <p class="principal__texto">Caso deseje editar informações ou atualizá-las no futuro, é só acessar a página de
-      perfil!</p>
-  <img src="./assets/img/Encerramento-compra---Alura-Books_1.png" alt="Ficha de cadastro completada"
-      class="cadastro__imagem">
+  <h2 class="principal__titulo">Pagina de listagem</h2>
+  <h3 class="principal__subtitulo cadastro__subtitulo">
+    Pessoas ja cadastradas
+  </h3>
+
+  <div class="cardLista" *ngFor="let letra of pessoasAgrupadas | keyvalue">
+    <h4 class="letra">{{ letra.key }}</h4>
+    <hr />
+
+    <div *ngFor="let pessoa of letra.value">
+      <ul class="card">
+        <li class="nome">{{ pessoa.nome }}</li>
+        <li class="nome">{{ pessoa.email }}</li>
+        <li class="nome">{{ pessoa.contato }}</li>
+        <li class="nome">{{ pessoa.nascimento }}</li>
+      </ul>
+    </div>
+  </div>
+
+  <button type="submit" (click)="cadastrar()" class="voltar">
+    Voltar para cadastros
+  </button>
 </main>
